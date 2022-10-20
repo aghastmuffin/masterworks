@@ -1,1 +1,2 @@
 the folder for the game code (not assets)
+game: a platformer where some platforms are 'hacked' and disapear when you stand on them, the goal of the game is to destroy the hack, maybe even become the hacker and hack the person who hacked you, but before the entire hack even started, you were just an ordinary program (maybe antivirus) but then you were turned sour by the hacker and wanted to protect your home
