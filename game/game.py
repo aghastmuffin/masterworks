@@ -26,3 +26,13 @@ class player(pygame.sprite.Sprite):
             y = y + dist
         if key[pygame.K_d]:
             x = x + dist 
+while exit:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit = False
+    all_sprites_list.update()
+    screen.fill(SURFACE_COLOR)
+    all_sprites_list.draw(screen)
+    pygame.display.flip()
+    clock.tick(60)
+  
