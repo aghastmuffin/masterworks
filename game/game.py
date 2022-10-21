@@ -1,6 +1,16 @@
 import pygame
 #we can add a verify account with discord for highscore/better web functions
 pygame.init()
+clock = pygame.time.Clock()
+all_sprites_list = pygame.sprite.Group()
+COLOR = (255, 100, 98)
+SURFACE_COLOR = (167, 255, 100)
+WIDTH = 500
+HEIGHT = 500
+size = (WIDTH, HEIGHT)
+screen = pygame.display.set_mode(size)
+pygame.display.set_caption("Creating Sprite")
+
 class player(pygame.sprite.Sprite):
     def __init__(self, color, height, width):
         super().__init__()
