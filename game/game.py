@@ -11,7 +11,7 @@ size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Creating Sprite")
 
-class player(pygame.sprite.Sprite):
+class playerc(pygame.sprite.Sprite):
     def __init__(self, color, height, width):
         super().__init__()
         #self.image will eventually be an image, but for now its a surface for a square
@@ -22,6 +22,8 @@ class player(pygame.sprite.Sprite):
         pygame.draw.rect(self.image,color,pygame.Rect(0, 0, width, height))
   
         self.rect = self.image.get_rect()
+player = playerc(COLOR, HEIGHT, WIDTH)
+all_sprites_list.add(player)
 def kmove():
     x = 0
     y = 0
@@ -36,6 +38,10 @@ def kmove():
         y = y + dist
     if key[pygame.K_d]:
         x = x + dist 
+    gravity = gravity - 0.1
+    player.rect.x = x
+    player.rect.y = y - gravity
+
 while exit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
