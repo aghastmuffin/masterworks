@@ -22,20 +22,20 @@ class player(pygame.sprite.Sprite):
         pygame.draw.rect(self.image,color,pygame.Rect(0, 0, width, height))
   
         self.rect = self.image.get_rect()
-    def kmove():
-        x = 0
-        y = 0
-        dist = 5
-        #dist is movement speed.
-        key = pygame.key.get_pressed()
-        if key[pygame.K_w]:
-            y = y - dist
-        if key[pygame.K_a]:
-            x = x - dist
-        if key[pygame.K_s]:
-            y = y + dist
-        if key[pygame.K_d]:
-            x = x + dist 
+def kmove():
+    x = 0
+    y = 0
+    dist = 5
+    #dist is movement speed.
+    key = pygame.key.get_pressed()
+    if key[pygame.K_w]:
+        y = y - dist
+    if key[pygame.K_a]:
+        x = x - dist
+    if key[pygame.K_s]:
+        y = y + dist
+    if key[pygame.K_d]:
+        x = x + dist 
 while exit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
