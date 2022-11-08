@@ -41,16 +41,18 @@ class Sprite(pygame.sprite.Sprite):
         pygame.draw.rect(self.image,color,pygame.Rect(0, 0, width, height))
   
         self.rect = self.image.get_rect()
-    def outsidecam(self):
-        #
+    def outsidecam(self, var):
+        global platformx
         rectprex = self.rect.x
         #redifining GLOBAL variabes
-        if rectprex < 0:
+        if rectprex < -20:
+            print("uh oh we're outside cam")
             #randomly add at right side of screen
-            self.rect.x()
-            return
-        else:
-            print("in")
+            # change values for random x placement as well as random y placement
+            self.rect.x = 475
+            self.rect.y = randint(40, 70)
+            if var == 1:
+                platformx = 475
     def ad(self, prex):
         global x
         global precalrect
@@ -58,7 +60,8 @@ class Sprite(pygame.sprite.Sprite):
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             #instead of moving the player we make another keyboard for platform
-
+            precalrect = prex
+            self.rect.x = precalrect + x
             x = x - dist 
         if key[pygame.K_a]:
             x = x + dist
@@ -66,8 +69,8 @@ class Sprite(pygame.sprite.Sprite):
 #we only want the x cord once, then we add to it We could try lists
 #        precalrect = self.rect.x
 #instead of defining the x in the function (which causes sliding), we instead ask the sprite to provide their spawn x cord, which does cause a little more jumble, but in might actually finally please work.
-        precalrect = prex
-        self.rect.x = precalrect + x
+            precalrect = prex
+            self.rect.x = precalrect + x
     def keyboard(self):
         key = pygame.key.get_pressed()
         dist = 5
@@ -156,16 +159,20 @@ gravset = 1
 
 def varrun():
     object_.keyboard()
-    platform.outsidecam()
+    #1 is for 1st platform 2 for second ect ect
+    platform.outsidecam(var=1)
     platform.ad(prex=platformx)
     platform1.ad(prex=platform1x)
-    
+def regetxval():
+    global platformx
+    global platform1x
+    platformx = platform.rect.x
+    platform1x = platform1.rect.x
 while exit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit = False
     varrun()
-#    object_.rect.x = x
     object_.rect.y = y
     all_sprites_list.update()
     screen.fill(SURFACE_COLOR)
