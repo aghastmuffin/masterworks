@@ -11,6 +11,8 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+also see:
+https://ogc.harvard.edu/pages/copyright-and-fair-use#:~:text=Fair%20use%20is%20the%20right%20to%20use%20a,very%20creativity%20the%20law%20is%20designed%20to%20foster.?adlt=strict&toWww=1&redig=434E9BB3A85A4840A5A2B6044505E223
 """
 #limit backward movement, or store old variable pos in x and use scroll like that
 # GLOBAL VARIABLES
