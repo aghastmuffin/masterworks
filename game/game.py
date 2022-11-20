@@ -11,8 +11,6 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-also see:
-https://ogc.harvard.edu/pages/copyright-and-fair-use#:~:text=Fair%20use%20is%20the%20right%20to%20use%20a,very%20creativity%20the%20law%20is%20designed%20to%20foster.?adlt=strict&toWww=1&redig=434E9BB3A85A4840A5A2B6044505E223
 """
 #limit backward movement, or store old variable pos in x and use scroll like that
 # GLOBAL VARIABLES
@@ -45,23 +43,30 @@ class Sprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
     def outsidecam(self, var):
         global platformx
+        global platform1x
         rectprex = self.rect.x
         #redifining GLOBAL variabes
         if rectprex < -20:
-            print("uh oh we're outside cam")
+            #we have to constantly recalculate the edges
             #randomly add at right side of screen
             # change values for random x placement as well as random y placement
-            self.rect.x = 475
+
+#            self.rect.x = object_.rect.x + 475
             self.rect.y = randint(40, 70)
             if var == 1:
-                platformx = 475
+                platformx = platformx + 450
+                print(platformx)
+            if var == 2:
+                platform1x = 0
+                platform1x = platformx + randint(60, 80)
+                print(platform1x)
     def ad(self, prex):
         global x
         global precalrect
         dist = 2
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
-            #instead of moving the player we make another keyboard for platform
+            #instedddad of moving the player we make another keyboard for platform
             precalrect = prex
             self.rect.x = precalrect + x
             x = x - dist 
@@ -97,7 +102,7 @@ class Sprite(pygame.sprite.Sprite):
         if key[pygame.K_x]:
             if jumping:
                 if dash == 1: 
-                    x = x + 80
+                    x = x - 80
                     dash = 0
                 #make more balanced also cooldown, but overall dash is a good idea
             else:
@@ -109,6 +114,7 @@ class Sprite(pygame.sprite.Sprite):
                 y = y - dist
 #                gravset = 0
                 gravity2 = 4
+        gravity2 = 0
 #160, 500
         collide1 = pygame.Rect.colliderect(self.rect, platform.rect)
         collide2 = pygame.Rect.colliderect(self.rect, platform1.rect)
@@ -162,7 +168,9 @@ gravset = 1
 def varrun():
     object_.keyboard()
     #1 is for 1st platform 2 for second ect ect
+    #we still move x so i need to constantly calculate edge of screen.
     platform.outsidecam(var=1)
+    platform1.outsidecam(var=2)
     platform.ad(prex=platformx)
     platform1.ad(prex=platform1x)
 def regetxval():
@@ -170,6 +178,7 @@ def regetxval():
     global platform1x
     platformx = platform.rect.x
     platform1x = platform1.rect.x
+    
 while exit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
