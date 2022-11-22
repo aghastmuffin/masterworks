@@ -31,16 +31,24 @@ precalrect = 0
 curx = 0
 # Object class
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, color, height, width):
+    def __init__(self, color, height, width, img, imgpath):
         super().__init__()
+        if img == 0:
+            #loading a texture void sprite
+            self.image = pygame.Surface([width, height])
+            self.image.fill(SURFACE_COLOR)
+            self.image.set_colorkey(COLOR)
+            pygame.draw.rect(self.image,color,pygame.Rect(0, 0, width, height))
+            self.rect = self.image.get_rect()
+        if img == 1:
+            #loading a custom sprite
+            self.image = imgpath
+            self.rect = self.image.get_rect()
+        else:
+            print("Unexpected error with sprite texture (li. 48) img either 0 or 1 and int.")
+
   
-        self.image = pygame.Surface([width, height])
-        self.image.fill(SURFACE_COLOR)
-        self.image.set_colorkey(COLOR)
   
-        pygame.draw.rect(self.image,color,pygame.Rect(0, 0, width, height))
-  
-        self.rect = self.image.get_rect()
     def outsidecam(self, var):
         global platformx
         global platform1x
@@ -55,11 +63,21 @@ class Sprite(pygame.sprite.Sprite):
             self.rect.y = randint(40, 70)
             if var == 1:
                 platformx = platformx + 450
-                print(platformx)
+
             if var == 2:
                 platform1x = 0
                 platform1x = platformx + randint(60, 80)
-                print(platform1x)
+
+        if rectprex > 500:
+
+            self.rect.y = randint(40, 70)
+            if var == 1:
+                platformx = 0
+
+            if var == 2:
+                platform1x = randint(60, 80)
+
+
     def ad(self, prex):
         global x
         global precalrect
@@ -114,7 +132,6 @@ class Sprite(pygame.sprite.Sprite):
                 y = y - dist
 #                gravset = 0
                 gravity2 = 4
-        gravity2 = 0
 #160, 500
         collide1 = pygame.Rect.colliderect(self.rect, platform.rect)
         collide2 = pygame.Rect.colliderect(self.rect, platform1.rect)
@@ -130,28 +147,30 @@ class Sprite(pygame.sprite.Sprite):
                 gravity2 = gravity2 - 0.1
                 #slowly build up gravity, then add the added gravity to the player's movement
                 y = y - gravity2
-#respawn loop, if you exit the screen, then you are automatically put back to the start of the level
+#respawn loop, if you exit the bottom of the screen, then you are automatically put back to the start of the level
+        global platformx
         if y > 500:
-            x = 0
+            x = platformx + 7
+            jumping = 0
             y = 0
             gravity2 = 0
 #            object_.rect.x = x
             object_.rect.y = y
         object_.rect.y = y
-  
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("SPLAT - A platformer")
+spriteimage = pygame.image.load(os.path.join('c:/', 'Users', "levic", "Python_files", "Masterworks", "Assets", "player2.png" )).convert_alpha()
+pygame.display.set_caption("IM LOSING MY MINDDD LETS GOOOO POGGIES OWOWOWOW HOW DOES GRAVITY VARIABLES NOT WORK")
 all_sprites_list = pygame.sprite.Group() 
 #define sprites
-object_ = Sprite(RED, 20, 25)
+object_ = Sprite(RED, 20, 25, 1, spriteimage)
 all_sprites_list.add(object_)
-platform = Sprite(GREEN, 20, 25)
+platform = Sprite(GREEN, 20, 25, 0, "")
 platformx = 0
 platform.rect.x = platformx
 platform.rect.y = 100
 all_sprites_list.add(platform)
-platform1 = Sprite(GREEN, 10, 25)
+platform1 = Sprite(GREEN, 10, 25, 0, "")
 platform1x = randint(40, 70)
 platform1.rect.x = platform1x
 platform1.rect.y = randint(20, 70)
@@ -192,3 +211,4 @@ while exit:
     clock.tick(60)
   
 pygame.quit()
+#check if it breaks after 13050 so after a little while of jumping if the game just stops putting the platforms, in which case we can use the reset to reset the game cords but not the acutal data from the game besides x and y right because we just spawn it back the begining one before the error happens so it looks infinite but it isn't too much for the computer to handle.
