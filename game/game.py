@@ -1,6 +1,6 @@
 
 import pygame
-from pygame import mixer, font
+#from pygame import mixer, font
 from random import randint
 import os
 """
@@ -15,7 +15,6 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 #limit backward movement, or store old variable pos in x and use scroll like that
 # GLOBAL VARIABLES
 pygame.init()
-font.init()
 RED = (255, 0, 0)
 GREEN = (47, 120, 1)
 COLOR = (255, 100, 98)
@@ -52,6 +51,7 @@ class Sprite(pygame.sprite.Sprite):
     def outsidecam(self, var):
         global platformx
         global platform1x
+        global platform2x
         rectprex = self.rect.x
         #redifining GLOBAL variabes
         if rectprex < -20:
@@ -67,6 +67,10 @@ class Sprite(pygame.sprite.Sprite):
             if var == 2:
                 platform1x = 0
                 platform1x = platformx + randint(60, 80)
+            
+            if var == 3:
+                platform2x = 0
+                platform2x = platform1x + randint(60, 80)
 
         if rectprex > 500:
 
@@ -77,6 +81,9 @@ class Sprite(pygame.sprite.Sprite):
             if var == 2:
                 platform1x = randint(60, 80)
 
+            if var == 3:
+                platform1x = randint(80, 100)
+        
 
     def ad(self, prex):
         global x
@@ -135,7 +142,8 @@ class Sprite(pygame.sprite.Sprite):
 #160, 500
         collide1 = pygame.Rect.colliderect(self.rect, platform.rect)
         collide2 = pygame.Rect.colliderect(self.rect, platform1.rect)
-        collide = 0 + collide1 + collide2
+        collide3 = pygame.Rect.colliderect(self.rect, platform2.rect)
+        collide = 0 + collide1 + collide2 + collide3
         if gravset == 1:
             #implies to python that collide = 1, so if you're touching any platform it will return a one if none are being touched it gives a 0
             if collide:
@@ -153,13 +161,19 @@ class Sprite(pygame.sprite.Sprite):
             x = platformx + 7
             jumping = 0
             y = 0
+            pygame.display.update()
             gravity2 = 0
 #            object_.rect.x = x
             object_.rect.y = y
         object_.rect.y = y
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
-spriteimage = pygame.image.load(os.path.join('c:/', 'Users', "levic", "Python_files", "Masterworks", "Assets", "player2.png" )).convert_alpha()
+try:
+    #player sprite
+    spriteimage = pygame.image.load(os.path.join('c:/', 'Users', "levic", "Python_files", "Masterworks", "Assets", "player2.png" )).convert_alpha()
+    cloudpng = pygame.image.load(os.path.join('c:/', 'Users', "levic", "Python_files", "Masterworks", "Assets", "cloud.png" )).convert_alpha()
+except:
+    print("PANIC --- ERROR::SPRITES NOT FOUND")
 pygame.display.set_caption("IM LOSING MY MINDDD LETS GOOOO POGGIES OWOWOWOW HOW DOES GRAVITY VARIABLES NOT WORK")
 all_sprites_list = pygame.sprite.Group() 
 #define sprites
@@ -170,11 +184,19 @@ platformx = 0
 platform.rect.x = platformx
 platform.rect.y = 100
 all_sprites_list.add(platform)
+
 platform1 = Sprite(GREEN, 10, 25, 0, "")
 platform1x = randint(40, 70)
 platform1.rect.x = platform1x
 platform1.rect.y = randint(20, 70)
 all_sprites_list.add(platform1)
+
+platform2 = Sprite(GREEN, 10, 25, 0, "")
+platform2x = platform1x + randint(40, 70)
+platform2.rect.x = platform2x
+platform2.rect.y = randint(20, 70)
+all_sprites_list.add(platform2)
+
 y = int(0)
 x = int(0)
 gravity2 = 0
@@ -190,8 +212,10 @@ def varrun():
     #we still move x so i need to constantly calculate edge of screen.
     platform.outsidecam(var=1)
     platform1.outsidecam(var=2)
+    platform2.outsidecam(var=3)
     platform.ad(prex=platformx)
     platform1.ad(prex=platform1x)
+    platform2.ad(prex=platform2x)
 def regetxval():
     global platformx
     global platform1x
@@ -207,6 +231,7 @@ while exit:
     all_sprites_list.update()
     screen.fill(SURFACE_COLOR)
     all_sprites_list.draw(screen)
+    #or use pygame.display.update()
     pygame.display.flip()
     clock.tick(60)
   
