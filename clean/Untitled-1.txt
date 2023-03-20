@@ -1,0 +1,57 @@
+ToDo:
+ -allow resize of screen
+ -Remake add more platforms
+ -bugtest
+ -add saves
+ -starting screen
+ -add paralax effect
+ -story
+ -gameplay
+ -after death player keeps going down reguardless of death loop
+ -change path to relitive and also get username using os
+ -add enemy ai that jumps behind you
+ -make it so you move forward a little more out of the screen so you can see whats behind you also move backwards (by back arrow)
+  -save old platforms in a array or list or something
+ -add text that flashes for story, and a skip button. (STORY)
+ -Figure out how to fade in text, and sprites
+ -make start button clickable, not just hoverable.
+ -add some easter eggs
+ -add more enemies, maybe one that takes away points (yellow) and one that ends the game (red)
+ -fix enemy movement
+ -add abilites like double jump ect
+ -add screenshake
+ -add button flash when clicked
+ -bugfix (Press x then move idk what to call) and other platform related issues (clipping)
+in progress:
+ -make music ||w||
+ -add start menu ||w||
+ -Rework jump system ||w||
+Done:
+ -Infinite platform scrolling
+ -GET TEXT WORKING ON MAIN PROJECT
+ ---
+
+
+
+ OLD JUMP SCRIPT: 
+ #                y = y - dist
+#                gravset = 0
+                yforup = 20
+                #going up
+                jumpup = 0
+#                jumpcounthelper = 0
+                jumpup = jumpup + 0.2
+                while yforup > 0:
+                    jumpup = jumpup + 0.1
+                    gravset = 1
+                    yforup = yforup - 1
+#                    gravity2 = gravity2 + 0.1
+                    y = y - jumpup
+#                    if jumpcounthelper == 0:
+#                       y = y - jumpup
+#                        jumpcounthelper = jumpcounthelper + 1
+#                    else:
+#                        jumpcounthelper = jumpcounthelper - 1
+                    gravity2 = 0
+                if yforup == 0:
+                    score = score + 1
